@@ -17,7 +17,7 @@ import { filterData, getFilterValues } from "../utils/filterData";
 import { baseUrl, fetchApi } from "../utils/fetchApi";
 import noResult from "../assets/images/noresult.svg";
 
-export default function SearchFilters() {
+const SearchFilters = () => {
   const [filters] = useState(filterData);
   const [searchTerm, setSearchTerm] = useState("");
   const [locationData, setLocationData] = useState();
@@ -150,4 +150,6 @@ export default function SearchFilters() {
       </Flex>
     </Flex>
   );
-}
+};
+
+export default SearchFilters;
