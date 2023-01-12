@@ -15,9 +15,9 @@ import Image from "next/image";
 
 import { filterData, getFilterValues } from "../utils/filterData";
 import { baseUrl, fetchApi } from "../utils/fetchApi";
-import noResult from "../assets/images/noresult.svg";
+import noresult from "../assets/images/noresult.svg";
 
-const SearchFilters = () => {
+export default function SearchFilters() {
   const [filters] = useState(filterData);
   const [searchTerm, setSearchTerm] = useState("");
   const [locationData, setLocationData] = useState();
@@ -137,7 +137,7 @@ const SearchFilters = () => {
                     marginTop="5"
                     marginBottom="5"
                   >
-                    <Image src={noResult} alt="No Result" />
+                    <Image src={noresult} alt="No Result" />
                     <Text fontSize="xl" marginTop="3">
                       Waiting to search!
                     </Text>
@@ -150,6 +150,4 @@ const SearchFilters = () => {
       </Flex>
     </Flex>
   );
-};
-
-export default SearchFilters;
+}
