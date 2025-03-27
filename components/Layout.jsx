@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
       <Head>
         <title>Homyz</title>
       </Head>
-      <Box maxWidth="1280px" m="auto">
+      <Box>
         <header>
           <Navbar />
         </header>

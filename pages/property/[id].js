@@ -1,13 +1,12 @@
-import millify from "millify";
-import { Box, Flex, Spacer, Text } from "@chakra-ui/layout";
-import { Avatar } from "@chakra-ui/avatar";
-import { FaBed, FaBath } from "react-icons/fa";
-import { BsGridFill } from "react-icons/bs";
-import { GoVerified } from "react-icons/go";
+import millify from 'millify';
+import { Box, Flex, Grid, Text } from '@chakra-ui/layout';
+import { Avatar } from '@chakra-ui/avatar';
+import { FaBed, FaBath } from 'react-icons/fa';
+import { BsGridFill } from 'react-icons/bs';
+import { GoVerified } from 'react-icons/go';
 
-
-import { baseUrl, fetchApi } from "../../utils/fetchApi";
-import ImageScrollbar from "../../components/ImageScrollbar";
+import { baseUrl, fetchApi } from '../../utils/fetchApi';
+import ImageScrollbar from '../../components/ImageScrollbar';
 
 const PropertyDetails = ({
   propertyDetails: {
@@ -27,100 +26,109 @@ const PropertyDetails = ({
     photos,
   },
 }) => (
-  <Box maxWidth="1000px" margin="auto" p="4">
+  <Box maxWidth='1280px' m='auto' p='10'>
     {photos && <ImageScrollbar data={photos} alt={title} />}
-    <Box w="full" p="6">
-      <Flex paddingTop="2" alignItems="center">
-        <Box paddingRight="3" color="green.400">
+    <Box w='full' py='6'>
+      <Flex paddingTop='2' alignItems='center'>
+        <Box paddingRight='3' color='green.400'>
           {isVerified && <GoVerified />}
         </Box>
-        <Text fontWeight="bold" fontSize="lg">
+        <Text fontWeight='bold' fontSize='lg'>
           AED {price} {rentFrequency && `/${rentFrequency}`}
         </Text>
-        <Spacer />
-        <Avatar size="sm" src={agency?.logo?.url}></Avatar>
+        <Avatar size='sm' src={agency?.logo?.url} ml='auto' />
       </Flex>
       <Flex
-        alignItems="center"
-        p="1"
-        justifyContent="space-between"
-        w="250px"
-        color="blue.400"
+        alignItems='center'
+        p='1'
+        justifyContent='space-between'
+        w='250px'
+        color='blue.400'
       >
-        {rooms}
-        <FaBed /> | {baths} <FaBath /> | {millify(area)} sqft <BsGridFill />
+        {rooms} <FaBed /> | {baths} <FaBath /> | {millify(area)} sqft{' '}
+        <BsGridFill />
       </Flex>
     </Box>
-    <Box marginTop="2">
-      <Text fontSize="lg" marginBottom="2" fontWeight="bold">
+
+    <Box marginTop='2'>
+      <Text fontSize='lg' marginBottom='2' fontWeight='bold'>
         {title}
       </Text>
-      <Text lineHeight="2" color="gray.600">
-        {description}
-      </Text>
+      <Box
+        lineHeight='2'
+        color='gray.600'
+        p='6'
+        dangerouslySetInnerHTML={{ __html: description }}
+      />
     </Box>
+
     <Flex
-      flexWrap="wrap"
-      textTransform="uppercase"
-      justifyContent="space-between"
+      flexWrap='wrap'
+      justifyContent='space-between'
+      borderBottom='1px'
+      borderColor='gray.100'
+      p='3'
     >
-      <Flex
-        justifyContent="space-between"
-        w="400px"
-        borderBottom="1px"
-        borderColor="gray.100"
-        p="3"
-      >
-        <Text>Type</Text>
-        <Text fontWeight="bold">{type}</Text>
-      </Flex>
-      <Flex
-        justifyContent="space-between"
-        w="400px"
-        borderBottom="1px"
-        borderColor="gray.100"
-        p="3"
-      >
-        <Text>Purpose</Text>
-        <Text fontWeight="bold">{purpose}</Text>
-      </Flex>
-      {furnishingStatus && (
-        <Flex
-          justifyContent="space-between"
-          w="400px"
-          borderBottom="1px"
-          borderColor="gray.100"
-          p="3"
-        >
-          <Text>Furnishing Status</Text>
-          <Text fontWeight="bold">{furnishingStatus}</Text>
-        </Flex>
-      )}
+      <Text>Type</Text>
+      <Text fontWeight='bold'>{type}</Text>
     </Flex>
+    <Flex
+      flexWrap='wrap'
+      justifyContent='space-between'
+      borderBottom='1px'
+      borderColor='gray.100'
+      p='3'
+    >
+      <Text>Purpose</Text>
+      <Text fontWeight='bold'>{purpose}</Text>
+    </Flex>
+    {furnishingStatus && (
+      <Flex
+        flexWrap='wrap'
+        justifyContent='space-between'
+        borderBottom='1px'
+        borderColor='gray.100'
+        p='3'
+      >
+        <Text>Furnishing Status</Text>
+        <Text fontWeight='bold'>{furnishingStatus}</Text>
+      </Flex>
+    )}
+
     <Box>
-      {amenities.length && (
-        <Text fontSize="2xl" fontWeight="black" marginTop="5">
-          Facilites:
+      {amenities.length > 0 && (
+        <Text fontSize='2xl' fontWeight='black' marginTop='5'>
+          Facilities:
         </Text>
       )}
-      <Flex flexWrap="wrap">
+      <Grid
+        templateColumns={{
+          base: 'repeat(2, 1fr)',
+          md: 'repeat(3, 1fr)',
+          lg: 'repeat(4, 1fr)',
+        }}
+        gap={4}
+        mt={2}
+      >
         {amenities?.map((item) =>
           item?.amenities?.map((amenity) => (
-            <Text
+            <Flex
               key={amenity.text}
-              fontWeight="bold"
-              color="blue.400"
-              fontSize="l"
-              p="2"
-              bg="gray.200"
-              m="1"
-              borderRadius="5"
+              align='center'
+              justify='center'
+              p='2'
+              bg='gray.200'
+              borderRadius='5'
+              textAlign='center'
+              fontWeight='bold'
+              color='blue.400'
+              fontSize='lg'
             >
               {amenity.text}
-            </Text>
+            </Flex>
           ))
         )}
-      </Flex>
+      </Grid>
     </Box>
   </Box>
 );
